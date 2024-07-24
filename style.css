@@ -1,0 +1,40 @@
+body{
+    background-color: #dddbdb8c;
+}
+
+header{
+    padding: 10px;
+    
+}
+
+#nomePokemon{
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+}
+
+#enviar{
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+    border-radius: 0px;
+}
+
+header{
+    background-color: #E3350D;
+}
+
+#pesquisa{
+    background-color: rgb(54, 54, 54);
+    border-end-end-radius: 20px;
+    border-end-start-radius: 20px;
+    padding: 15px;
+}
+
+#botaoColapse{
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+}
