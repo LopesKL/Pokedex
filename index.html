@@ -25,7 +25,7 @@
                 <form class="container " id="formulario">
                     <h3 class="text-white fw-bold">Nome ou numero</h3>
                     <input type="text" class="text-center" id="nomePokemon" placeholder="Ex: 'pikachu' ou '25'">
-                    <button id="enviar" type="submit" value="Buscar">Pesquisar</button>
+                    <button id="enviar" type="submit" value="Buscar" onclick="">Pesquisar</button>
                 </form>
                 <p></p>
             </div>
@@ -36,13 +36,27 @@
                 </h4>
 
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle dropdown-menu-lg-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <button class="btn btn-secondary dropdown-toggle dropdown-menu-lg-center" type="button" data-bs-toggle="dropdown" aria-expanded="false"> </button>
+
+                    <ul class="dropdown-menu text-center " style="background-color: dddbdb8c;">
+                        <button class="dropdown-item" type="submit" style="background-color: #729f3f; border-radius: 5px; margin-top: 5px; ">Inseto</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #53a4cf; border-radius: 5px; margin-top: 5px; ">Dragão</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #fdb9e9; border-radius: 5px; margin-top: 5px; ">Fada</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #fd7d24; border-radius: 5px; margin-top: 5px; ">Fogo</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #7b62a3; border-radius: 5px; margin-top: 5px; ">Fantasma</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #f7de3f; border-radius: 5px; margin-top: 5px; ">Terrestre</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #a4acaf; border-radius: 5px; margin-top: 5px; ">Normal</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #f366b9; border-radius: 5px; margin-top: 5px; ">Psíquico</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #9eb7b8; border-radius: 5px; margin-top: 5px; ">Aço</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #707070; border-radius: 5px; margin-top: 5px; ">Dark</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #eed535; border-radius: 5px; margin-top: 5px; ">Eletrico</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #d56723; border-radius: 5px; margin-top: 5px; ">Lutador</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #3dc7ef; border-radius: 5px; margin-top: 5px; ">Voador</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #9bcc50; border-radius: 5px; margin-top: 5px; ">Planta</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #51c4e7; border-radius: 5px; margin-top: 5px; ">Gelo</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #b97fc9; border-radius: 5px; margin-top: 5px; ">Venenoso</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #a38c21; border-radius: 5px; margin-top: 5px; ">Pedra</button>
+                        <button class="dropdown-item" type="submit" style="background-color: #4592c4; border-radius: 5px; margin-top: 5px; ">Água</button>
                     </ul>
                   </div>
             </div>
@@ -50,11 +64,18 @@
     </div>
 
 
+    <div class="container-fluid text-center row">
+        <ul id="item-list" class="col-auto container"></ul>
+        <ul id="item-list2" class="col-auto container"></ul>
+        <ul id="item-list3" class="col-auto container"></ul>
+        <ul id="item-list4" class="col-auto container"></ul>
+    </div>
 
+    <div class="container text-center">
+    <Button id="botaoCarregar" type="submit">Carregar Mais</Button>
+    </div>
 
-
-
-    <script src="script.js"></script>
+    <script src="scriptv2.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
