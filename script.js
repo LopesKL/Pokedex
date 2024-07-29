@@ -65,6 +65,21 @@ formulario.addEventListener("submit", function (e) {
 
 
 
+const types = [
+  { text: `${coiso.types[0].type.name}` },
+  {  text: `${coiso.types[0].type.name}`}
+];
+
+
+
+types.forEach(type => {
+  const li = document.createElement('li');
+  li.className = 'list-group-item';
+  li.id = type.id;
+  li.textContent = type.text;
+  ulTypes.appendChild(li);
+});
+
 
 /* ideias para usar */
 
@@ -151,3 +166,5 @@ function verificar(event) {
 }
 
 atualizarUrl()
+
+
