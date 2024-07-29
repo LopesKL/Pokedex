@@ -1,13 +1,18 @@
+
 document.addEventListener('DOMContentLoaded', (event) => {
   let currentIndex = 1;
   let tipoSelecionado = 0;
+  let currentTypeIndex = 0;
+  let typePokemonList = [];
 
   const selectElement = document.getElementById('typeSelect');
   selectElement.addEventListener('change', (event) => {
       tipoSelecionado = event.target.value;
       console.log(tipoSelecionado);
-      currentIndex = 1;  // Reset the index
-      document.getElementById('listaPokemon').innerHTML = '';  // Clear the list
+      currentIndex = 1;
+      currentTypeIndex = 0;  // Reset the type index
+      document.getElementById('listaPokemon').innerHTML = '';
+      typePokemonList = [];
       addItems();  // Add items based on the new selection
   });
 
@@ -66,46 +71,57 @@ document.addEventListener('DOMContentLoaded', (event) => {
           fetch(url)
               .then(response => response.json())
               .then(data => {
-                  data.pokemon.slice(0, 12).forEach(pokeData => {
-                      fetch(pokeData.pokemon.url)
-                          .then(response => response.json())
-                          .then(coiso => {
-                              var nome = coiso.name;
-                              var numeroPokedex = coiso.id;
-                              var tipo01 = coiso.types[0].type.name;
-                              var sprite = coiso.sprites.front_default;
+                  if (typePokemonList.length === 0) {
+                      typePokemonList = data.pokemon;
+                  }
+                  for (let i = 0; i < 12; i++) {
+                      if (currentTypeIndex >= typePokemonList.length) break;
+                      let pokeData = typePokemonList[currentTypeIndex].pokemon;
+                      currentTypeIndex++;
 
-                              const li = document.createElement('li');
-                              li.className = "margem";
+                      Promise.all(promises).push(
+                          fetch(pokeData.url)
+                              .then(response => response.json())
+                              .then(coiso => {
+                                  var nome = coiso.name;
+                                  var numeroPokedex = coiso.id;
+                                  var tipo01 = coiso.types[0].type.name;
+                                  var sprite = coiso.sprites.front_default;
 
-                              const img = document.createElement('img');
-                              img.src = sprite;
-                              li.appendChild(img);
+                                  const li = document.createElement('li');
+                                  li.className = "margem";
 
-                              const numberSpan = document.createElement('div');
-                              numberSpan.textContent = `Nº ${numeroPokedex}`;
-                              numberSpan.className = "text-start text-muted";
-                              li.appendChild(numberSpan);
+                                  const img = document.createElement('img');
+                                  img.src = sprite;
+                                  li.appendChild(img);
 
-                              const nameSpan = document.createElement('div');
-                              nameSpan.textContent = nome;
-                              nameSpan.className = "text-start fw-bold";
-                              li.appendChild(nameSpan);
+                                  const numberSpan = document.createElement('div');
+                                  numberSpan.textContent = `Nº ${numeroPokedex}`;
+                                  numberSpan.className = "text-start text-muted";
+                                  li.appendChild(numberSpan);
 
-                              const nameType = document.createElement('span');
-                              nameType.textContent = tipo01;
-                              li.appendChild(nameType);
+                                  const nameSpan = document.createElement('div');
+                                  nameSpan.textContent = nome;
+                                  nameSpan.className = "text-start fw-bold";
+                                  li.appendChild(nameSpan);
 
-                              if (coiso.types.length > 1) {
-                                  const nameType2 = document.createElement('span');
-                                  let tipo02 = coiso.types[1].type.name;
-                                  nameType2.textContent = tipo02;
-                                  li.appendChild(nameType2);
-                              }
+                                  const nameType = document.createElement('span');
+                                  nameType.textContent = tipo01;
+                                  li.appendChild(nameType);
 
-                              ul.appendChild(li);
-                          });
-                  });
+                                  if (coiso.types.length > 1) {
+                                      const nameType2 = document.createElement('span');
+                                      let tipo02 = coiso.types[1].type.name;
+                                      nameType2.textContent = tipo02;
+                                      li.appendChild(nameType2);
+                                  }
+
+                                  ul.appendChild(li);
+                              })
+                      );
+                  }
+
+                  Promise.all(promises);
               });
       }
   }
@@ -113,5 +129,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const loadMoreButton = document.getElementById('botaoCarregar');
   loadMoreButton.addEventListener('click', addItems);
 
-  addItems();  // Initial call to populate the list
+  addItems();  
 });
