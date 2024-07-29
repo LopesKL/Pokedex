@@ -39,67 +39,6 @@ header{
     border-radius: 5px;
 }
 
-#tipo1{
-    background-color: #a4acaf; border-radius: 5px; margin-top: 5px;
-}
-
-#tipo2{
-    background-color: #d56723; border-radius: 5px; margin-top: 5px;
-}
-
-#tipo3{
-    background-color: #3dc7ef; border-radius: 5px; margin-top: 5px;
-}
-
-#tipo4{
-    background-color: #b97fc9; border-radius: 5px; margin-top: 5px;
-}
-
-#tipo5{
-    background-color: #f7de3f; border-radius: 5px; margin-top: 5px;
-}
-#tipo6{
-    background-color: #a38c21; border-radius: 5px; margin-top: 5px;
-}
-#tipo7{
-    background-color: #729f3f; border-radius: 5px; margin-top: 5px;
-}
-#tipo8{
-    background-color: #7b62a3; border-radius: 5px; margin-top: 5px;
-}
-#tipo9{
-    background-color: #9eb7b8; border-radius: 5px; margin-top: 5px;
-}
-#tipo10{
-    background-color: #9eb7b8; border-radius: 5px; margin-top: 5px;
-}
-#tipo11{
-    background-color: #4592c4; border-radius: 5px; margin-top: 5px;
-}
-#tipo12{
-    background-color: #9bcc50; border-radius: 5px; margin-top: 5px;
-}
-#tipo13{
-    background-color: #eed535; border-radius: 5px; margin-top: 5px;
-}
-#tipo14{
-    background-color: #f366b9; border-radius: 5px; margin-top: 5px;
-}
-#tipo15{
-    background-color: #51c4e7; border-radius: 5px; margin-top: 5px;
-}
-#tip16{
-    background-color: #53a4cf; border-radius: 5px; margin-top: 5px;
-}
-#tipo17{
-    background-color: #707070; border-radius: 5px; margin-top: 5px;
-}
-#tipo18{
-    background-color: #fdb9e9; border-radius: 5px; margin-top: 5px;
-
-}
-
-
 .pokemon-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
