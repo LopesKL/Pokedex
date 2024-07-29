@@ -10,6 +10,64 @@ let pesquisaNome = `pokemon/${nome}`;
 function tipoPokemonBotao(buttonId) {
     console.log("Button ID: " + buttonId);
 }
+<<<<<<< HEAD
+=======
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    let nextNumber1 = 1;
+
+    function addItems() {
+        const ul = document.getElementById('item-list');
+        for (let i = 0; i < 4; i++) {
+            (function(currentNumber) {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        currentNumber-=1
+                        let url2 = data.results[currentNumber].url;
+                        fetch(url2)
+                            .then(response => response.json())
+                            .then(coiso => {
+                                const liImage = document.createElement('li');
+                                const img = document.createElement('img');
+                                img.id = 'spriteFront';
+                                img.src = coiso.sprites.front_default;
+                                liImage.appendChild(img);
+                                ul.appendChild(liImage);
+
+                                const liNumber = document.createElement('li');
+                                liNumber.className = 'text-start text-muted';
+                                liNumber.innerHTML = `<span> n° ${coiso.id} </span>`;
+                                ul.appendChild(liNumber);
+
+                                const liName = document.createElement('li');
+                                liName.className = 'text-start fw-bold';
+                                liName.textContent = coiso.name;
+                                ul.appendChild(liName);
+
+                                const ulTypes = document.createElement('ul');
+                                ulTypes.className = 'list-group list-group-horizontal';
+                                ul.appendChild(ulTypes);
+
+                                const types = [{ text: coiso.types[0].type.name }];
+                                if (coiso.types.length > 1) {
+                                    types.push({ text: coiso.types[1].type.name });
+                                }
+
+                                types.forEach(type => {
+                                    const li = document.createElement('li');
+                                    li.className = 'list-group-item';
+                                    li.textContent = type.text;
+                                    ulTypes.appendChild(li);
+                                });
+                            });
+                    });
+            })(nextNumber1);
+            nextNumber1 += 4;
+        }
+    }
+>>>>>>> 28b52e18eac18afdb249bb4703c9a045d30a5da2
+
 
 
 

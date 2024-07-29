@@ -96,6 +96,7 @@ header{
 }
 #tipo18{
     background-color: #fdb9e9; border-radius: 5px; margin-top: 5px;
+<<<<<<< HEAD
 }
 
 
@@ -105,4 +106,6 @@ header{
     gap: 20px;
     list-style-type: none;
     padding: 0;
+=======
+>>>>>>> 28b52e18eac18afdb249bb4703c9a045d30a5da2
 }
