@@ -1,53 +1,66 @@
-
-
-
-
 document.addEventListener('DOMContentLoaded', (event) => {
+
   let currentIndex = 1;
 
   function addItems() {
-      const ul = document.getElementById('listaPokemon');
-      const promises = [];
+    const ul = document.getElementById('listaPokemon');
+    const promises = [];
 
       for (let i = 0; i < 12; i++) {
-          let url2 = `https://pokeapi.co/api/v2/pokemon/${currentIndex}`;
-          promises.push(fetch(url2).then(response => response.json()));
-          currentIndex++;
+
+        let listaGeral = `pokemon/${currentIndex}`;
+        currentIndex++;
+
+        var urlSelecionada
+
+        urlSelecionada = listaGeral
+
+        let url = `https://pokeapi.co/api/v2/${urlSelecionada}`;
+        promises.push(fetch(url).then(response => response.json()));
+
       }
+    
 
-      Promise.all(promises).then(results => {
-          results.forEach(coiso => {
-              const li = document.createElement('li');
-              li.className = "margem"
+    Promise.all(promises).then(results => {
+      results.forEach(coiso => {
+          var nome = coiso.name
 
-              const img = document.createElement('img');
-              img.src = coiso.sprites.front_default;
-              li.appendChild(img);
+          var numeroPokedex = coiso.id;
+  
+          var tipo01 = coiso.types[0].type.name
 
-              const numberSpan = document.createElement('div');
-              numberSpan.textContent = `Nº ${coiso.id}`;
-              numberSpan.className = "text-start text-muted"
-              li.appendChild(numberSpan);
+        const li = document.createElement('li');
+        li.className = "margem"
 
-              const nameSpan = document.createElement('div');
-              nameSpan.textContent = coiso.name;
-              nameSpan.className = "text-start fw-bold"
-              li.appendChild(nameSpan);
+        const img = document.createElement('img');
+        img.src = coiso.sprites.front_default;
+        li.appendChild(img);
 
-              const nameType = document.createElement('span');
-              nameType.textContent = coiso.types[0].type.name;
-              li.appendChild(nameType);
+        const numberSpan = document.createElement('div');
+        numberSpan.textContent = `Nº ${numeroPokedex}`;
+        numberSpan.className = "text-start text-muted"
+        li.appendChild(numberSpan);
 
-              if(coiso.types.length > 1) {
-                const nameType2 =  document.createElement('span');
-                nameType2.textContent = coiso.types[1].type.name;
+        const nameSpan = document.createElement('div');
+        nameSpan.textContent = nome;
+        nameSpan.className = "text-start fw-bold"
+        li.appendChild(nameSpan);
 
-                li.appendChild(nameType2);
-            }
+        const nameType = document.createElement('span');
+        nameType.textContent = tipo01;
+        li.appendChild(nameType);
 
-              ul.appendChild(li);
-          });
+        if (coiso.types.length > 1) {
+          const nameType2 = document.createElement('span');
+          let tipo02 = coiso.types[1].type.name
+          nameType2.textContent = tipo02;
+
+          li.appendChild(nameType2);
+        }
+
+        ul.appendChild(li);
       });
+    });
   }
 
   addItems();
