@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', (event) => {
   let currentIndex = 1;
   let tipoSelecionado = 0;
@@ -10,10 +9,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
       tipoSelecionado = event.target.value;
       console.log(tipoSelecionado);
       currentIndex = 1;
-      currentTypeIndex = 0;  // Reset the type index
+      currentTypeIndex = 0; 
       document.getElementById('listaPokemon').innerHTML = '';
       typePokemonList = [];
-      addItems();  // Add items based on the new selection
+      addItems();  
   });
 
   function addItems() {
@@ -74,54 +73,58 @@ document.addEventListener('DOMContentLoaded', (event) => {
                   if (typePokemonList.length === 0) {
                       typePokemonList = data.pokemon;
                   }
+
+                  const typePromises = [];
+
                   for (let i = 0; i < 12; i++) {
                       if (currentTypeIndex >= typePokemonList.length) break;
                       let pokeData = typePokemonList[currentTypeIndex].pokemon;
                       currentTypeIndex++;
 
-                      Promise.all(promises).push(
+                      typePromises.push(
                           fetch(pokeData.url)
                               .then(response => response.json())
-                              .then(coiso => {
-                                  var nome = coiso.name;
-                                  var numeroPokedex = coiso.id;
-                                  var tipo01 = coiso.types[0].type.name;
-                                  var sprite = coiso.sprites.front_default;
-
-                                  const li = document.createElement('li');
-                                  li.className = "margem";
-
-                                  const img = document.createElement('img');
-                                  img.src = sprite;
-                                  li.appendChild(img);
-
-                                  const numberSpan = document.createElement('div');
-                                  numberSpan.textContent = `Nº ${numeroPokedex}`;
-                                  numberSpan.className = "text-start text-muted";
-                                  li.appendChild(numberSpan);
-
-                                  const nameSpan = document.createElement('div');
-                                  nameSpan.textContent = nome;
-                                  nameSpan.className = "text-start fw-bold";
-                                  li.appendChild(nameSpan);
-
-                                  const nameType = document.createElement('span');
-                                  nameType.textContent = tipo01;
-                                  li.appendChild(nameType);
-
-                                  if (coiso.types.length > 1) {
-                                      const nameType2 = document.createElement('span');
-                                      let tipo02 = coiso.types[1].type.name;
-                                      nameType2.textContent = tipo02;
-                                      li.appendChild(nameType2);
-                                  }
-
-                                  ul.appendChild(li);
-                              })
                       );
                   }
 
-                  Promise.all(promises);
+                  Promise.all(typePromises).then(results => {
+                      results.forEach(coiso => {
+                          var nome = coiso.name;
+                          var numeroPokedex = coiso.id;
+                          var tipo01 = coiso.types[0].type.name;
+                          var sprite = coiso.sprites.front_default;
+
+                          const li = document.createElement('li');
+                          li.className = "margem";
+
+                          const img = document.createElement('img');
+                          img.src = sprite;
+                          li.appendChild(img);
+
+                          const numberSpan = document.createElement('div');
+                          numberSpan.textContent = `Nº ${numeroPokedex}`;
+                          numberSpan.className = "text-start text-muted";
+                          li.appendChild(numberSpan);
+
+                          const nameSpan = document.createElement('div');
+                          nameSpan.textContent = nome;
+                          nameSpan.className = "text-start fw-bold";
+                          li.appendChild(nameSpan);
+
+                          const nameType = document.createElement('span');
+                          nameType.textContent = tipo01;
+                          li.appendChild(nameType);
+
+                          if (coiso.types.length > 1) {
+                              const nameType2 = document.createElement('span');
+                              let tipo02 = coiso.types[1].type.name;
+                              nameType2.textContent = tipo02;
+                              li.appendChild(nameType2);
+                          }
+
+                          ul.appendChild(li);
+                      });
+                  });
               });
       }
   }
@@ -129,5 +132,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const loadMoreButton = document.getElementById('botaoCarregar');
   loadMoreButton.addEventListener('click', addItems);
 
-  addItems();  
+  addItems();  // Initial call to populate the list
 });
