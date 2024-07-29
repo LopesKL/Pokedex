@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         promises.push(fetch(url).then(response => response.json()));
 
       }
-    
 
     Promise.all(promises).then(results => {
       results.forEach(coiso => {
