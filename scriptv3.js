@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', (event) => {
   let currentIndex = 1;
   let tipoSelecionado = 0;
@@ -53,12 +54,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                   const nameType = document.createElement('span');
                   nameType.textContent = tipo01;
+                  nameType.className = `${tipo01}`;
                   li.appendChild(nameType);
 
                   if (coiso.types.length > 1) {
                       const nameType2 = document.createElement('span');
                       let tipo02 = coiso.types[1].type.name;
                       nameType2.textContent = tipo02;
+                      nameType2.className = `${tipo02}`;
                       li.appendChild(nameType2);
                   }
 
@@ -111,14 +114,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
                           nameSpan.className = "text-start fw-bold";
                           li.appendChild(nameSpan);
 
+
                           const nameType = document.createElement('span');
                           nameType.textContent = tipo01;
+                          nameType.className = `${tipo01}`;
                           li.appendChild(nameType);
 
                           if (coiso.types.length > 1) {
                               const nameType2 = document.createElement('span');
                               let tipo02 = coiso.types[1].type.name;
                               nameType2.textContent = tipo02;
+                              nameType2.className = `${tipo02}`;
                               li.appendChild(nameType2);
                           }
 
@@ -132,5 +138,46 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const loadMoreButton = document.getElementById('botaoCarregar');
   loadMoreButton.addEventListener('click', addItems);
 
-  addItems();  // Initial call to populate the list
+  addItems();  
+});
+
+
+//Banner search bar
+
+
+document.getElementById('closeBannerBtn').addEventListener('click', function() {
+    document.getElementById('banner').style.display = 'none';
+});
+
+document.getElementById('formulario').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    document.getElementById('banner').style.display = 'block';
+
+    var nome = document.getElementById('nomePokemon').value;
+
+    let url = `https://pokeapi.co/api/v2/pokemon/${nome}`
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("nomePokemonBanner").textContent = data.name;
+                document.getElementById("spriteFrontBanner").src = data.sprites.front_default;
+                document.getElementById("spriteBackBanner").src = data.sprites.back_default;
+                document.getElementById("spriteFrontShinyBanner").src = data.sprites.front_shiny;
+                document.getElementById("spriteBackShinyBanner").src = data.sprites.back_shiny;
+                document.getElementById("nomePokemonBanner").textContent = data.name;
+                document.getElementById("numeroPokedexBanner").textContent = data.id;
+                document.getElementById("tipo01Banner").textContent = data.types[0].type.name;
+                document.getElementById("tipo01Banner").className = data.types[0].type.name
+                
+                
+                if (data.types.length > 1) {
+                document.getElementById("tipo02Banner").textContent = data.types[1].type.name;
+                document.getElementById("tipo02Banner").className = data.types[1].type.name
+                } else {
+                    document.getElementById("tipo02Banner").textContent = "";
+                    document.getElementById("tipo02Banner").className = "";
+                }
+            })
 });
