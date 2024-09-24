@@ -25,29 +25,73 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         var numeroPokedex = data[i].id;
                         var sprite = data[i].frontSpriteUrl;
 
-                        const li = document.createElement('li');
-                        li.className = "margem";
 
-                        const link = document.createElement('a');
-                        link.href = "#";
-                        link.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark"
 
-                        const img = document.createElement('img');
-                        img.src = sprite;
-                        link.appendChild(img);
 
-                        const numberSpan = document.createElement('div');
-                        numberSpan.textContent = `Nº ${numeroPokedex}`;
-                        numberSpan.className = "text-start text-muted";
-                        link.appendChild(numberSpan);
+                        const li = document.createElement('div');
+                        li.className = "margem2 row";
 
-                        const nameSpan = document.createElement('div');
-                        nameSpan.textContent = nome;
-                        nameSpan.className = "text-start fw-bold";
-                        link.appendChild(nameSpan);
 
-                        li.appendChild(link);
+                        const DivImagem = document.createElement('div');
+                        DivImagem.className = "col-4 text-center ";
+                        
+                        const Imagem = document.createElement('img');
+                        Imagem.className = " text-center  ";
+                        Imagem.src = sprite;
+                        
+                        DivImagem.appendChild(Imagem);
+
+
+                        const DivId = document.createElement('div');
+                        DivId.className = "col-3 text-center ";
+                        
+                        const Id = document.createElement('span');
+                        Id.className = " text-center ";
+                        Id.textContent = numeroPokedex;
+                        
+                        DivId.appendChild(Id);
+
+
+                        const DivNome = document.createElement('div');
+                        DivNome.className = "col-3 text-center ";
+                        
+                        const Nome = document.createElement('span');
+                        Nome.className = " text-center";
+                        Nome.textContent = nome;
+                        
+                        DivNome.appendChild(Nome);
+
+                        
+                        const DivEditar = document.createElement('div');
+                        DivEditar.className = "col-1 text-center ";
+                        
+                        const Editar = document.createElement('a');
+                        Editar.href = "#";
+                        Editar.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark";
+                        Editar.textContent = "Editar";
+                        
+                        DivEditar.appendChild(Editar);
+
+
+                        
+                        const DivExcluir = document.createElement('div');
+                        DivExcluir.className = "col-1 text-center ";
+                        
+                        const Excluir = document.createElement('a');
+                        Excluir.href = "#";
+                        Excluir.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark";
+                        Excluir.textContent = "Excluir";
+                        
+                        DivExcluir.appendChild(Excluir);
+                        
+                        li.appendChild(DivImagem);
+                        li.appendChild(DivId);
+                        li.appendChild(DivNome);
+                        li.appendChild(DivEditar);
+                        li.appendChild(DivExcluir);
+                        
                         ul.appendChild(li);
+                        
                     }
                     lista += 12;
                 })
@@ -74,42 +118,76 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                         if (tipo01 == tipoSelecionado || tipo02 == tipoSelecionado) {
 
-                            const li = document.createElement('li');
-                            li.className = "margem";
+                            var nome = data[i].name;
+                        var numeroPokedex = data[i].id;
+                        var sprite = data[i].frontSpriteUrl;
 
-                            const link = document.createElement('a');
-                            link.href = "#";
-                            link.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark"
 
-                            const img = document.createElement('img');
-                            img.src = sprite;
-                            link.appendChild(img);
 
-                            const numberSpan = document.createElement('div');
-                            numberSpan.textContent = `Nº ${numeroPokedex}`;
-                            numberSpan.className = "text-start text-muted";
-                            link.appendChild(numberSpan);
 
-                            const nameSpan = document.createElement('div');
-                            nameSpan.textContent = nome;
-                            nameSpan.className = "text-start fw-bold";
-                            link.appendChild(nameSpan);
+                        const li = document.createElement('div');
+                        li.className = "margem2 row";
 
-                            const nameType = document.createElement('span');
-                            nameType.textContent = tipo01;
-                            nameType.className = `${tipo01}`;
-                            link.appendChild(nameType);
 
-                            if (data[i].secondType) {
-                                const nameType2 = document.createElement('span');
-                                let tipo02 = data[i].secondType;
-                                nameType2.textContent = tipo02;
-                                nameType2.className = `${tipo02}`;
-                                link.appendChild(nameType2);
-                            }
+                        const DivImagem = document.createElement('div');
+                        DivImagem.className = "col-4 text-center ";
+                        
+                        const Imagem = document.createElement('img');
+                        Imagem.className = " text-center  ";
+                        Imagem.src = sprite;
+                        
+                        DivImagem.appendChild(Imagem);
 
-                            li.appendChild(link);
-                            ul.appendChild(li);
+
+                        const DivId = document.createElement('div');
+                        DivId.className = "col-3 text-center ";
+                        
+                        const Id = document.createElement('span');
+                        Id.className = " text-center fw-bold";
+                        Id.textContent = numeroPokedex;
+                        
+                        DivId.appendChild(Id);
+
+
+                        const DivNome = document.createElement('div');
+                        DivNome.className = "col-3 text-center ";
+                        
+                        const Nome = document.createElement('span');
+                        Nome.className = " text-center fw-bold";
+                        Nome.textContent = nome;
+                        
+                        DivNome.appendChild(Nome);
+
+                        
+                        const DivEditar = document.createElement('div');
+                        DivEditar.className = "col-1 text-center ";
+                        
+                        const Editar = document.createElement('a');
+                        Editar.href = "#";
+                        Editar.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark";
+                        Editar.textContent = "Editar";
+                        
+                        DivEditar.appendChild(Editar);
+
+
+                        
+                        const DivExcluir = document.createElement('div');
+                        DivExcluir.className = "col-1 text-center ";
+                        
+                        const Excluir = document.createElement('a');
+                        Excluir.href = "#";
+                        Excluir.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark";
+                        Excluir.textContent = "Excluir";
+                        
+                        DivExcluir.appendChild(Excluir);
+                        
+                        li.appendChild(DivImagem);
+                        li.appendChild(DivId);
+                        li.appendChild(DivNome);
+                        li.appendChild(DivEditar);
+                        li.appendChild(DivExcluir);
+                        
+                        ul.appendChild(li);
                         }
                     }
 
