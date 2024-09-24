@@ -116,115 +116,115 @@ header{
     font-size: 200%;
 }
 
-.bug{
+.Bug{
     background-color: #729f3f ;
     color: white;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.dragon{
+.Dragon{
     background-color: #53a4cf;
     color: white;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.fairy{
+.Fairy{
     background-color: #fdb9e9;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.fire{
+.Fire{
     background-color: #fd7d24;
     color: white;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.ghost{
+.Ghost{
     background-color: #7b62a3;
     color: white;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.ground{
+.Ground{
     background-color: #f7de3f ;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.normal{
+.Normal{
     background-color:#a4acaf ;
 }
-.psychic{
+.Psychic{
     background-color: #f366b9 ;
     color: white;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.steel{
+.Steel{
     background-color: #9eb7b8;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.dark{
+.Dark{
     background-color: #707070;
     color: white;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.electric{
+.Electric{
     background-color: #eed535;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.fighting{
+.Fighting{
     background-color: #d56723 ;
     color: white;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.flying{
+.Flying{
     background-color: #3dc7ef;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.grass{
+.Grass{
     background-color: #9bcc50;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.ice{
+.Ice{
     background-color: #51c4e7;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.poison{
+.Poison{
     background-color: #b97fc9;
     color: white;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.rock{
+.Rock{
     background-color: #a38c21;
     color: white;
     border-radius: 8px;
     padding: 7px;
     margin-right: 8px;
 }
-.water{
+.Water{
     background-color: #4592c4;
     color: white;
     border-radius: 8px;
