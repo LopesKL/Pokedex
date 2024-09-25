@@ -285,7 +285,6 @@ document.getElementById('FormInfotmations').addEventListener('submit', (event) =
                     
                 })
                 .catch(error => console.error('Erro ao atualizar Pokémon:', error));
-                window.location.href = 'menu.html';
             } else {
                 alert('Pokémon não encontrado.');
             }
