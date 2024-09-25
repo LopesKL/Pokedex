@@ -12,7 +12,7 @@ const Type02 = document.getElementById('Type02').value;
 document.getElementById('FormInfotmations').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    if (Id != null && Name != null && FrontSprite != null && BackSprite != null && FrontShinySprite != null && BackShinySprite != null && Type01 != null && Type02 != null) {
+    if (Id != null && Name != null && FrontSprite != null && BackSprite != null && FrontShinySprite != null && BackShinySprite != null && Type01 != null ) {
 
         fetch('https://localhost:44373/api/pokemon', {
             method: 'POST',
@@ -33,7 +33,6 @@ document.getElementById('FormInfotmations').addEventListener('submit', function 
             .then(response => response.json())
             .then(data => console.log('Item added:', data))
             .catch(error => console.error('Error:', error));
-
-        
-    }
+            
+        }
 })
