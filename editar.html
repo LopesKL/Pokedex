@@ -36,15 +36,20 @@
 
     <form id="FormInfotmations" class="container text-center">
         <div class=" container row ">
-            <div class="col-6 ">
+            <div class="col-4 ">
                 <span class="h5 textoCoisa">Pokedex number</span><br />
-                <input type="number" class="text-center caixa" id="PokedexNumber" placeholder="">
+                <input type="number" class="text-center caixa" id="PokedexNumber" placeholder="" readonly>
             </div>
-            <div class="col-6 ">
+            <div class="col-4 ">
+                <span class="h5 textoCoisa">id</span><br />
+                <input type="number" class="text-center caixa" id="id" placeholder="" readonly>
+            </div>
+            <div class="col-4 ">
                 <span class="h5 textoCoisa">Pokemon Name</span><br />
                 <input type="text" class="text-center caixa" id="PokemonName" placeholder="">
             </div>
         </div>
+
 
         <div class=" container row">
             <div class="col-6 ">
@@ -88,8 +93,8 @@
     <script src="scriptMenu.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
-        event.preventDefault();
-        EditarCoisa(); 
+            event.preventDefault();
+            EditarCoisa();
         });
     </script>
 

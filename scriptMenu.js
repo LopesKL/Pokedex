@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 .then(data => {
                     for (var i = lista; i < lista + 12; i++) {
                         var nome = data[i].name;
-                        var numeroPokedex = data[i].id;
+                        var numeroPokedex = data[i].numeroPokedex;
                         var sprite = data[i].frontSpriteUrl;
                         var spriteTrazeira = data[i].backSpriteUrl
                         var spriteShiny = data[i].frontShinySpriteUrl
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         DivEditar.className = "col-1 text-center ";
 
                         const Editar = document.createElement('button');
-                        Editar.id = "btneditar";
+                        Editar.numeroPokedex = "btneditar";
                         Editar.className = "btn btn-primary";
                         Editar.textContent = "Editar";
 
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         DivExcluir.className = "col-1 text-center ";
 
                         const Excluir = document.createElement('button');
-                        Excluir.id = "btnexcluir";
+                        Excluir.numeroPokedex = "btnexcluir";
                         Excluir.className = "btn btn-danger";
                         Excluir.textContent = "Excluir";
 
@@ -95,14 +95,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 .then(data => {
 
                                     for (i = 0; i<100; i++){
-                                        if(data[i].id == numeroPokedex){
+                                        if(data[i].numeroPokedex == numeroPokedex){
 
                                         fetch("https://localhost:44373/api/pokemon", {
                                             method: 'DELETE',
                                             headers: {
                                                 'Content-Type': 'application/json'
                                             },
-                                            body: JSON.stringify({id: numeroPokedex,
+                                            body: JSON.stringify({
+                                                id: data[i].id,
+                                                numeroPokedex: numeroPokedex,
                                                 name: nome,
                                                 firstType: tipo01,
                                                 secondType: tipo02,
@@ -125,7 +127,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 })
                                 .catch(error => console.error('Erro ao buscar Pokémons:', error));
                         });
-
                         DivExcluir.appendChild(Excluir);
 
                         li.appendChild(DivImagem);
@@ -155,9 +156,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         if (data[i].secondType != null) { tipo02 == data[i].secondType };
 
                         if (tipo01 == tipoSelecionado || tipo02 == tipoSelecionado) {
+                            var id = data[i].id;
 
                             var nome = data[i].name;
-                            var numeroPokedex = data[i].id;
+                            var numeroPokedex = data[i].numeroPokedex;
                             var sprite = data[i].frontSpriteUrl;
                             var spriteTrazeira = data[i].backSpriteUrl
                             var spriteShiny = data[i].frontShinySpriteUrl
@@ -198,7 +200,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             DivEditar.className = "col-1 text-center ";
     
                             const Editar = document.createElement('button');
-                            Editar.id = "btneditar";
+                            Editar.numeroPokedex = "btneditar";
                             Editar.className = "btn btn-primary";
                             Editar.textContent = "Editar";
     
@@ -216,7 +218,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             DivExcluir.className = "col-1 text-center ";
     
                             const Excluir = document.createElement('button');
-                            Excluir.id = "btnexcluir";
+                            Excluir.numeroPokedex = "btnexcluir";
                             Excluir.className = "btn btn-danger";
                             Excluir.textContent = "Excluir";
     
@@ -232,14 +234,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                     .then(data => {
     
                                         for (i = 0; i<100; i++){
-                                            if(data[i].id == numeroPokedex){
+                                            if(data[i].numeroPokedex == numeroPokedex){
     
                                             fetch("https://localhost:44373/api/pokemon", {
                                                 method: 'DELETE',
                                                 headers: {
                                                     'Content-Type': 'application/json'
                                                 },
-                                                body: JSON.stringify({id: numeroPokedex,
+                                                body: JSON.stringify({numeroPokedex: numeroPokedex,
                                                     name: nome,
                                                     firstType: tipo01,
                                                     secondType: tipo02,
@@ -290,15 +292,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
 function EditarCoisa() {
     // Recuperar o ID armazenado
     event.preventDefault();
-    const idEditar = parseInt(localStorage.getItem('idEditar'), 10); // Converte para número
+    const idEditar = parseInt(localStorage.getItem('idEditar'), 10);
     let url = `https://localhost:44373/api/pokemon`;
-
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            const pokemon = data.find(p => p.id === idEditar);
+            
+            const pokemon = data.find(p => p.numeroPokedex == idEditar);
+        console.log("Id Editar: " + idEditar)
             if (pokemon) {
-                document.getElementById('PokedexNumber').value = pokemon.id;
+                document.getElementById('id').value = pokemon.id;
+                document.getElementById('PokedexNumber').value = pokemon.numeroPokedex;
                 document.getElementById('PokemonName').value = pokemon.name;
                 document.getElementById('FrontSprite').value = pokemon.frontSpriteUrl;
                 document.getElementById('BackSprite').value = pokemon.backSpriteUrl;
@@ -315,9 +319,11 @@ function EditarCoisa() {
 
 
 document.getElementById('FormInfotmations').addEventListener('submit', (event) => {
-    event.preventDefault(); // Impede o envio padrão do formulário
+    event.preventDefault(); 
 
     const idPokemon = document.getElementById('PokedexNumber').value;
+
+    console.log("idPokemon: "+ idPokemon)
 
     let url = `https://localhost:44373/api/pokemon`;
 
@@ -325,17 +331,19 @@ document.getElementById('FormInfotmations').addEventListener('submit', (event) =
         .then(response => response.json())
         .then(data => {
 
-            const pokemonEncontrado = data.find(pokemon => pokemon.id == idPokemon);
+            const pokemonEncontrado = data.find(p => p.numeroPokedex == idPokemon);
 
-            if (pokemonEncontrado) {
-                // Fazer o PUT para atualizar o Pokémon encontrado
+            console.log(pokemonEncontrado.numeroPokedex)
+
+            if (pokemonEncontrado.numeroPokedex == idPokemon) {
                 fetch(`https://localhost:44373/api/pokemon`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        id: parseInt(document.getElementById('PokedexNumber').value, 10),
+                        id:  document.getElementById('id').value,
+                        numeroPokedex: document.getElementById('PokedexNumber').value,
                         name: document.getElementById('PokemonName').value,
                         frontSpriteUrl: document.getElementById('FrontSprite').value,
                         backSpriteUrl: document.getElementById('BackSprite').value,
@@ -353,4 +361,3 @@ document.getElementById('FormInfotmations').addEventListener('submit', (event) =
         })
         .catch(error => console.error('Erro ao buscar dados do Pokémon:', error));
 });
-

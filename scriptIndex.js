@@ -1,5 +1,6 @@
 //Listar Pokemon na tela
 
+
 document.addEventListener('DOMContentLoaded', (event) => {
     let tipoSelecionado = 0;
     let lista = 0;
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
                         var nome = data[i].name;
-                        var numeroPokedex = data[i].id;
+                        var numeroPokedex = data[i].numeroPokedex;
                         var tipo01 = data[i].firstType;
                         var sprite = data[i].frontSpriteUrl;
 
@@ -80,7 +81,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                         var nome = data[i].name	;
                         console.log(nome)
-                        var numeroPokedex = data[i].id;
+                        var numeroPokedex = data[i].numeroPokedex;
                         var tipo01 = data[i].firstType;
                         var sprite = data[i].frontSpriteUrl;
                         var tipo02 = data[i].secondType;
@@ -163,7 +164,7 @@ document.getElementById('formulario').addEventListener('submit', function (event
         .then(response => response.json())
         .then(data => {
             for (let e = 0; e < 100; e++) {
-                if (data[e] && (data[e].name.toLowerCase() == pesquisa || data[e].id.toString() == pesquisa)) {                    
+                if (data[e] && (data[e].name.toLowerCase() == pesquisa || data[e].numeroPokedex.toString() == pesquisa)) {                    
                     document.getElementById("nomePokemonBanner").textContent = data[e].name;
                     document.getElementById("spriteFrontBanner").src = data[e].frontSpriteUrl;
                     document.getElementById("spriteBackBanner").src = data[e].backSpriteUrl;
