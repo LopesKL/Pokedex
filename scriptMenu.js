@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         var nome = data[i].name;
                         var numeroPokedex = data[i].id;
                         var sprite = data[i].frontSpriteUrl;
+                        var spriteTrazeira = data[i].backSpriteUrl
+                        var spriteShiny = data[i].frontShinySpriteUrl
+                        var spriteTrazeiraShinyt = data[i].backShinySpriteUrl
+                        var tipo01 = data[i].firstType
+                        var tipo02 = data[i].secondType
 
                         const li = document.createElement('div');
                         li.className = "margem2 row";
@@ -62,8 +67,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                         Editar.addEventListener('click', (function (idEditar) {
                             return function () {
-                                localStorage.setItem('idEditar', idEditar); // Armazena o ID do Pokémon a ser editado
-                                window.location.href = 'editar.html'; // Redireciona para a página de edição
+                                localStorage.setItem('idEditar', idEditar);
+                                window.location.href = 'editar.html';
                                 EditarCoisa();
                             };
                         })(numeroPokedex));
@@ -78,22 +83,50 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         Excluir.className = "btn btn-danger";
                         Excluir.textContent = "Excluir";
 
-                        /* Excluir.addEventListener('click', (function (idExcluir) {
-                            return function () {
-                                fetch(`https://localhost:44373/api/pokemon/${idExcluir}`, {
-                                    method: 'DELETE'
-                                })
-                                    .then(response => {
-                                        if (response.ok) {
-                                            // Remove o elemento da lista após excluir
-                                            li.remove();
-                                            alert('Pokémon excluído com sucesso!');
-                                        } else {
-                                            alert('Erro ao excluir o Pokémon.');
+                        Excluir.setAttribute('data-pokedex', numeroPokedex);
+
+                        Excluir.addEventListener('click', function () {
+                            const numeroPokedex = this.getAttribute('data-pokedex'); 
+
+                            console.log("Número da Pokédex:", numeroPokedex); 
+
+                            fetch("https://localhost:44373/api/pokemon")
+                                .then(response => response.json())
+                                .then(data => {
+
+                                    for (i = 0; i<100; i++){
+                                        if(data[i].id == numeroPokedex){
+
+                                            console.log("Numero I : " + i)
+
+                                        fetch("https://localhost:44373/api/pokemon", {
+                                            method: 'DELETE',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({id: numeroPokedex,
+                                                name: nome,
+                                                firstType: tipo01,
+                                                secondType: tipo02,
+                                                backSpriteUrl: spriteTrazeira,
+                                                frontSpriteUrl: sprite,
+                                                backShinySpriteUrl: spriteTrazeiraShinyt,
+                                                frontShinySpriteUrl: spriteShiny
+                                             }) 
+                                        })
+                                            .then(response => {
+
+                                                    li.remove();
+                                                    alert('Pokémon excluído com sucesso!');
+    
+                                            })
+                                            .catch(error => console.error('Erro ao excluir o Pokémon:', error));
                                         }
-                                    });
-                            };
-                        })(numeroPokedex));*/
+                                    }
+
+                                })
+                                .catch(error => console.error('Erro ao buscar Pokémons:', error));
+                        });
 
                         DivExcluir.appendChild(Excluir);
 
@@ -104,11 +137,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         li.appendChild(DivExcluir);
 
                         ul.appendChild(li);
+
                     }
                     lista += 12;
                 });
 
-            //Filtros por tipo 
         } else if (tipoSelecionado != 0) {
 
             let url = `https://localhost:44373/api/pokemon`;
@@ -183,7 +216,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             Excluir.className = "btn btn-danger";
                             Excluir.textContent = "Excluir";
 
-                            Excluir.addEventListener('click', (function (numeroPokedexCapturado) {
+                            /*Excluir.addEventListener('click', (function (numeroPokedexCapturado) {
                                 return function () {
                                     fetch('https://localhost:44373/api/pokemon/' + numeroPokedexCapturado, {
                                         method: 'DELETE',
@@ -197,7 +230,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                         })
                                         .catch(error => console.error('Error:', error));
                                 };
-                            })(numeroPokedex));
+                            })(numeroPokedex));*/
 
                             DivExcluir.appendChild(Excluir);
 
@@ -222,8 +255,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 });
 
-
-
 //Editar
 function EditarCoisa() {
     // Recuperar o ID armazenado
@@ -234,14 +265,14 @@ function EditarCoisa() {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            const pokemon = data.find(p => p.id === idEditar); 
+            const pokemon = data.find(p => p.id === idEditar);
             if (pokemon) {
                 document.getElementById('PokedexNumber').value = pokemon.id;
-                document.getElementById('PokemonName').value = pokemon.name; 
-                document.getElementById('FrontSprite').value = pokemon.frontSpriteUrl; 
-                document.getElementById('BackSprite').value = pokemon.backSpriteUrl; 
+                document.getElementById('PokemonName').value = pokemon.name;
+                document.getElementById('FrontSprite').value = pokemon.frontSpriteUrl;
+                document.getElementById('BackSprite').value = pokemon.backSpriteUrl;
                 document.getElementById('FrontShinySprite').value = pokemon.frontShinySpriteUrl;
-                document.getElementById('BackShinySprite').value = pokemon.backShinySpriteUrl; 
+                document.getElementById('BackShinySprite').value = pokemon.backShinySpriteUrl;
                 document.getElementById('Type01').value = pokemon.firstType;
                 document.getElementById('Type02').value = pokemon.secondType;
             } else {
@@ -255,7 +286,7 @@ function EditarCoisa() {
 document.getElementById('FormInfotmations').addEventListener('submit', (event) => {
     event.preventDefault(); // Impede o envio padrão do formulário
 
-    const idPokemon = document.getElementById('PokedexNumber').value; 
+    const idPokemon = document.getElementById('PokedexNumber').value;
 
     let url = `https://localhost:44373/api/pokemon`;
 
@@ -282,9 +313,9 @@ document.getElementById('FormInfotmations').addEventListener('submit', (event) =
                         firstType: document.getElementById('Type01').value,
                         secondType: document.getElementById('Type02').value
                     })
-                    
+
                 })
-                .catch(error => console.error('Erro ao atualizar Pokémon:', error));
+                    .catch(error => console.error('Erro ao atualizar Pokémon:', error));
             } else {
                 alert('Pokémon não encontrado.');
             }
