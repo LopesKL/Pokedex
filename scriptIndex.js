@@ -1,28 +1,29 @@
-//Listar Pokemon na tela
-
-
 document.addEventListener('DOMContentLoaded', (event) => {
     let tipoSelecionado = 0;
     let lista = 0;
+    const limit = 12;  // Número de Pokémons carregados por vez
 
     const selectElement = document.getElementById('typeSelect');
     selectElement.addEventListener('change', (event) => {
         tipoSelecionado = event.target.value;
         document.getElementById('listaPokemon').innerHTML = '';
+        lista = 0;  // Resetar a lista ao mudar o filtro
         addItems();
     });
 
     function addItems() {
         const ul = document.getElementById('listaPokemon');
+        loadMoreButton.style.display = '';  // Mostrar o botão antes de carregar mais Pokémons
 
         if (tipoSelecionado == 0) {
             let url = `https://localhost:44373/api/pokemon`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    for (var i = lista; i < lista + 12; i++) {
+                    const totalData = data.length;  // Tamanho total dos dados
 
-
+                    // Certificar-se de que `lista` não excede o tamanho de `data`
+                    for (var i = lista; i < lista + limit && i < totalData; i++) {
                         var nome = data[i].name;
                         var numeroPokedex = data[i].numeroPokedex;
                         var tipo01 = data[i].firstType;
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                         const link = document.createElement('a');
                         link.href = "#";
-                        link.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark"
+                        link.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark";
 
                         const img = document.createElement('img');
                         img.src = sprite;
@@ -65,37 +66,41 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         li.appendChild(link);
                         ul.appendChild(li);
                     }
-                    lista += 12;
-                })
+                    lista += limit;  // Incrementar a lista
 
-            //Filtros por tipo 
+                    // Esconder o botão se todos os Pokémons foram carregados ou se `lista` exceder o número total de Pokémons
+                    if (lista >= totalData ) {
+                        loadMoreButton.style.display = 'none';
+                    }
+                });
 
         } else if (tipoSelecionado != 0) {
+            loadMoreButton.style.display = 'none';  // Esconde o botão ao filtrar por tipo
 
             let url = `https://localhost:44373/api/pokemon`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    lista = 0;
-                    for (var i = lista; i < lista + 100; i++) {
+                    lista = 0;  // Resetar a lista ao mudar o tipo selecionado
+                    let pokemonCarregado = false;
+                    const totalData = data.length;  // Tamanho total dos dados
 
-                        var nome = data[i].name	;
-                        console.log(nome)
+                    for (var i = lista; i < lista + 200 && i < totalData; i++) {
+                        var nome = data[i].name;
                         var numeroPokedex = data[i].numeroPokedex;
                         var tipo01 = data[i].firstType;
                         var sprite = data[i].frontSpriteUrl;
                         var tipo02 = data[i].secondType;
 
-                        if (data[i].secondType != null) { tipo02 == data[i].secondType };
-
                         if (tipo01 == tipoSelecionado || tipo02 == tipoSelecionado) {
+                            pokemonCarregado = true;
 
                             const li = document.createElement('li');
                             li.className = "margem";
 
                             const link = document.createElement('a');
                             link.href = "#";
-                            link.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark"
+                            link.className = "link-offset-2 link-underline link-underline-opacity-0 text-dark";
 
                             const img = document.createElement('img');
                             img.src = sprite;
@@ -129,16 +134,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }
                     }
 
-                })
-
+                    // Caso não haja mais Pokémon para carregar, esconder o botão
+                    if (!pokemonCarregado) {
+                        loadMoreButton.style.display = 'none';
+                    }
+                });
         }
     }
 
     const loadMoreButton = document.getElementById('botaoCarregar');
     loadMoreButton.addEventListener('click', addItems);
     addItems();
-
 });
+
+
+
 
 
 
