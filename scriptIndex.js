@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
+                    data.sort((a, b) => a.numeroPokedex - b.numeroPokedex);
                     const totalData = data.length;  // Tamanho total dos dados
 
                     // Certificar-se de que `lista` não excede o tamanho de `data`
@@ -76,14 +77,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         } else if (tipoSelecionado != 0) {
             loadMoreButton.style.display = 'none';  // Esconde o botão ao filtrar por tipo
-
             let url = `https://localhost:44373/api/pokemon`;
             fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    lista = 0;  // Resetar a lista ao mudar o tipo selecionado
-                    let pokemonCarregado = false;
-                    const totalData = data.length;  // Tamanho total dos dados
+            .then(response => response.json())
+            .then(data => {
+                lista = 0;  // Resetar a lista ao mudar o tipo selecionado
+                let pokemonCarregado = false;
+                const totalData = data.length;  // Tamanho total dos dados
+                data.sort((a, b) => a.numeroPokedex - b.numeroPokedex);
 
                     for (var i = lista; i < lista + 200 && i < totalData; i++) {
                         var nome = data[i].name;

@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
+                    data.sort((a, b) => a.numeroPokedex - b.numeroPokedex);
                     const totalData = data.length;  
 
                     for (var i = lista; i < lista + limit && i < totalData; i++) {
@@ -98,7 +99,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 .then(response => response.json())
                                 .then(data => {
 
-                                    for (i = 0; i < 151; i++) {
+                                    for (i = 0; i < totalData; i++) {
                                         if (data[i].numeroPokedex == numeroPokedex) {
 
                                             fetch("https://localhost:44373/api/pokemon", {
@@ -150,11 +151,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 });
 
         } else if (tipoSelecionado != 0) {
-
             let url = `https://localhost:44373/api/pokemon`;
             fetch(url)
-                .then(response => response.json())
-                .then(data => {
+            .then(response => response.json())
+            .then(data => {
+                    data.sort((a, b) => a.numeroPokedex - b.numeroPokedex);
                     lista = 0;
                     loadMoreButton.style.display = 'none';
 
@@ -301,8 +302,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 //Editar
 function EditarCoisa() {
-    // Recuperar o ID armazenado
-    event.preventDefault();
+
     const idEditar = parseInt(localStorage.getItem('idEditar'), 10);
     let url = `https://localhost:44373/api/pokemon`;
     fetch(url)
@@ -328,8 +328,7 @@ function EditarCoisa() {
         .catch(error => console.error('Erro ao buscar dados do Pokémon:', error));
 }
 
-
-document.getElementById('FormInfotmations').addEventListener('submit', (event) => {
+function update() {
     event.preventDefault();
 
     const idPokemon = document.getElementById('PokedexNumber').value;
@@ -373,4 +372,4 @@ document.getElementById('FormInfotmations').addEventListener('submit', (event) =
             }
         })
         .catch(error => console.error('Erro ao buscar dados do Pokémon:', error));
-});
+};
